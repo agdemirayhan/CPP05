@@ -1,28 +1,40 @@
-# Makefile
-
-NAME = bureaucrat
+NAME = forms
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -Iinclude
 
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp \
-       ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRCDIR = src
+OBJDIR = obj
 
-OBJS = $(SRCS:.cpp=.o)
+SRCS = \
+	$(SRCDIR)/main.cpp \
+	$(SRCDIR)/Bureaucrat.cpp \
+	$(SRCDIR)/AForm.cpp \
+	$(SRCDIR)/ShrubberyCreationForm.cpp \
+	$(SRCDIR)/RobotomyRequestForm.cpp \
+	$(SRCDIR)/PresidentialPardonForm.cpp
 
-HEADERS = Bureaucrat.hpp AForm.hpp \
-          ShrubberyCreationForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp
+OBJS = \
+	$(OBJDIR)/main.o \
+	$(OBJDIR)/Bureaucrat.o \
+	$(OBJDIR)/AForm.o \
+	$(OBJDIR)/ShrubberyCreationForm.o \
+	$(OBJDIR)/RobotomyRequestForm.o \
+	$(OBJDIR)/PresidentialPardonForm.o
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
 
-%.o: %.cpp $(HEADERS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
 	rm -f $(NAME)
