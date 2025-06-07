@@ -1,7 +1,7 @@
 NAME = forms
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -Iinclude
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude
 
 SRCDIR = src
 OBJDIR = obj

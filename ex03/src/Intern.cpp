@@ -1,8 +1,8 @@
+#include <iostream>
 #include "Intern.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include <iostream>
 
 Intern::Intern() {}
 
@@ -14,16 +14,30 @@ Intern& Intern::operator=(const Intern&) {
 
 Intern::~Intern() {}
 
-AForm* Intern::makeForm(const std::string& formName, const std::string& target) {
-    struct FormPair {
-        std::string name;
-        AForm* (*creator)(const std::string&);
-    };
+// Form üretici fonksiyonları
+AForm* createShrubbery(const std::string& target) {
+    return new ShrubberyCreationForm(target);
+}
 
-    FormPair forms[] = {
-        { "shrubbery creation", [](const std::string& t) -> AForm* { return new ShrubberyCreationForm(t); } },
-        { "robotomy request", [](const std::string& t) -> AForm* { return new RobotomyRequestForm(t); } },
-        { "presidential pardon", [](const std::string& t) -> AForm* { return new PresidentialPardonForm(t); } }
+AForm* createRobotomy(const std::string& target) {
+    return new RobotomyRequestForm(target);
+}
+
+AForm* createPresidential(const std::string& target) {
+    return new PresidentialPardonForm(target);
+}
+
+// Eşleştirme yapısı
+struct FormPair {
+    const char* name;
+    AForm* (*creator)(const std::string&);
+};
+
+AForm* Intern::makeForm(const std::string& formName, const std::string& target) {
+    FormPair forms[3] = {
+        { "shrubbery creation", createShrubbery },
+        { "robotomy request", createRobotomy },
+        { "presidential pardon", createPresidential }
     };
 
     for (int i = 0; i < 3; ++i) {
@@ -34,5 +48,5 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
     }
 
     std::cerr << "Error: form \"" << formName << "\" not found" << std::endl;
-    return nullptr;
+    return NULL;
 }

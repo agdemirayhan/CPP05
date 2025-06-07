@@ -5,14 +5,16 @@ int	main(void)
 {
 	try
 	{
-		Bureaucrat bob("Bob", 250);
+		Bureaucrat bob("Bob", 10);
 		Form formA("FormA", 45, 30);
 		std::cout << bob << std::endl;
 		std::cout << formA << std::endl;
 		bob.signForm(formA);
 		std::cout << formA << std::endl;
-		Bureaucrat alice("Alice", 320);
+		Bureaucrat alice("Alice", 60);
 		alice.signForm(formA);
+		std::cout << formA << std::endl;
+		
 	}
 	catch (std::exception &e)
 	{

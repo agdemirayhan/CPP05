@@ -5,8 +5,7 @@
 
 int main() {
     try{
-
-        Bureaucrat b("Alice", 425);
+        Bureaucrat b("Alice", 5);
         
         ShrubberyCreationForm s("home");
         RobotomyRequestForm r("Bender");
