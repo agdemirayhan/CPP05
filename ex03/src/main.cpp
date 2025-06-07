@@ -21,7 +21,7 @@ int main() {
 
         form = someRandomIntern.makeForm("shrubbery creation", "Garden");
         if (form) {
-            Bureaucrat b("Bob", 150);
+            Bureaucrat b("Bob", 149);
             b.signForm(*form);
             b.executeForm(*form);
             delete form;
@@ -29,7 +29,7 @@ int main() {
 
         form = someRandomIntern.makeForm("presidential pardon", "Ford Prefect");
         if (form) {
-            Bureaucrat b("Charlie", 0); // This will throw
+            Bureaucrat b("Charlie", 1);
             b.signForm(*form);
             b.executeForm(*form);
             delete form;

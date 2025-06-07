@@ -6,43 +6,48 @@
 
 Intern::Intern() {}
 
-Intern::Intern(const Intern&) {}
+Intern::Intern(const Intern &) {}
 
-Intern& Intern::operator=(const Intern&) {
+Intern &Intern::operator=(const Intern &)
+{
     return *this;
 }
 
 Intern::~Intern() {}
 
-// Form üretici fonksiyonları
-AForm* createShrubbery(const std::string& target) {
+AForm *createShrubbery(const std::string &target)
+{
     return new ShrubberyCreationForm(target);
 }
 
-AForm* createRobotomy(const std::string& target) {
+AForm *createRobotomy(const std::string &target)
+{
     return new RobotomyRequestForm(target);
 }
 
-AForm* createPresidential(const std::string& target) {
+AForm *createPresidential(const std::string &target)
+{
     return new PresidentialPardonForm(target);
 }
 
-// Eşleştirme yapısı
-struct FormPair {
-    const char* name;
-    AForm* (*creator)(const std::string&);
+struct FormPair
+{
+    const char *name;
+    AForm *(*creator)(const std::string &);
 };
 
-AForm* Intern::makeForm(const std::string& formName, const std::string& target) {
+AForm *Intern::makeForm(const std::string &formName, const std::string &target)
+{
     FormPair forms[3] = {
-        { "shrubbery creation", createShrubbery },
-        { "robotomy request", createRobotomy },
-        { "presidential pardon", createPresidential }
-    };
+        {"shrubbery creation", createShrubbery},
+        {"robotomy request", createRobotomy},
+        {"presidential pardon", createPresidential}};
 
-    for (int i = 0; i < 3; ++i) {
-        if (formName == forms[i].name) {
-            std::cout << "Intern creates " << formName << std::endl;
+    for (int i = 0; i < 3; ++i)
+    {
+        if (formName == forms[i].name)
+        {
+            std::cout << "👉" << "Intern creates " << formName << std::endl;
             return forms[i].creator(target);
         }
     }
